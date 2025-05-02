@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pong</title>
+    <script src="main.js" defer></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+             overflow: hidden; 
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             height: 100vh;
+             background: radial-gradient(circle, yellow,#2F6E13);
+        }
+
+        canvas{
+            border: 10px solid orangered;  
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+            background-color: #213769;
+        }
+
+        .feedback{
+            font-family: monospace;
+            position: absolute;
+            top: 20px;
+            font-size: 36px;
+            color: white;
+            text-shadow: 0 0 5px black;  
+            left: -100%;
+            transform: translate(-50%);
+            opacity: 0;
+            display: flex;
+            justify-content: flex-start;
+            gap: 20px;
+        }
+
+        .appear{
+            animation: appear 300ms forwards;
+        }
+
+        @keyframes appear{
+            from{
+                left: -100%;
+                opacity: 0;
+            }
+            to{
+                left: 50%;
+                opacity: 1;
+            }
+
+        }
+
+      button{
+        padding: 10px;
+        border-radius: 5px;
+        background-color: whitesmoke;
+        border: none;
+        font-family: inherit;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 200ms linear, background-color 300ms linear, color 400ms linear;
+      }
+
+      button:hover{
+        transform: scale(1.1);
+        background-color: black;
+        color: white;
+      }
+
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+</body>
+</html>
