@@ -11,16 +11,16 @@
             this.id = id;
         }
 
-        increaseScore = ()=> ++this.score
+        increaseScore = ()=> ++this.score;
 
         move = (y)=> this.pos.y = y;
         
     }
 
-    function Ball(){
+    function Ball(min,max){
         this.radius= 10;
-        this.minVelocity = 6;
-        this.maxVelocity = 14;
+        this.minVelocity = min;
+        this.maxVelocity = max;
         this.initialServer = true;
         this.directions = {x: 0, y: 0};
         this.pos = {x: this.radius, y: this.radius};
@@ -108,7 +108,7 @@
     canvas.height = height;
     const player = new Player(posPlayerX, Math.floor(height / 2) - heightPlayer / 2, heightPlayer, 'player');
     const computer = new Player(width - posPlayerX, Math.floor(height / 2) - heightPlayer / 2, heightPlayer, 'computer');
-    const ball = new Ball();
+    const ball = new Ball((width > 1200) ? 18 : (width > 768)? 12 : 8, (width > 1200)? 25 : (width > 768) ? 20 : 15);
 
 
 
@@ -155,11 +155,11 @@
 
     const moveComputer = ()=>{
         if(ball.pos.x > canvas.width * .2){
-            computer.pos.y = ball.pos.y - ball.radius;
+            computer.move(ball.pos.y - ball.radius);
         }
        
-        if (computer.pos.y < 0) computer.pos.y = 0;
-        if (computer.pos.y + computer.height > height) computer.pos.y = height - computer.height;
+        if (computer.pos.y < 0) computer.move(0);
+        if (computer.pos.y + computer.height > height) computer.move(height - computer.height);
     }
 
     const update = ()=>{
@@ -185,14 +185,14 @@
     
     const movePLayer = (e)=>{
         if(e.clientY > height - heightPlayer || e.clientY < 0)return;
-        player.pos.y = e.clientY;
+        player.move(e.clientY);
     }
 
     const resetGame = (container)=>{
         player.score = 0;
         computer.score = 0;
-        player.pos.y = Math.floor(height / 2) - heightPlayer / 2;
-        computer.pos.y = Math.floor(height / 2) - heightPlayer / 2;
+        player.move(Math.floor(height / 2) - heightPlayer / 2);
+        computer.move(Math.floor(height / 2) - heightPlayer / 2);
         ball.initialServer = true;
         ball.directions = {x: 0, y :0};
         ball.pos = {x : ball.radius, y : ball.radius};
